@@ -9,7 +9,8 @@ class NewUsersTest < Minitest::Test
 
   def test_phone
     user = Users.new('homework.csv')
-    assert (user.phone.select {|x| x == nil}) == []
+    #assert (user.phone.select {|x| x == nil}) == []
+    assert_equal ['919-111-1111', '000-000-0000'], user.phone.collect{|x| x[4]}
   end
 
   def test_join

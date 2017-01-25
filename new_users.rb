@@ -19,11 +19,12 @@ class Users
   end
 
   def join
-    joinarray = []
-    data.each do |x|
-    joinarray << x[1].match(/^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/)
-    end
-    p joinarray
+    data.select {|x| x[1].match(/^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/)}
+    #joinarray = []
+    #data.each do |x|
+    #joinarray << x[1].match(/^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/)
+    #end
+    #p joinarray
   end
 
   def email
@@ -42,5 +43,7 @@ class Users
 
   def validity
   p emailarray.select {|x| x !=nil}
+  # get the entire csv and remove all the ones that don't match
+  # data - data.phone - data.join - data.email
   end
 end

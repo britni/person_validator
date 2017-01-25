@@ -15,7 +15,8 @@ class NewUsersTest < Minitest::Test
 
   def test_join
     user = Users.new('homework.csv')
-    assert (user.join.select {|x| x == nil}) == nil
+    #assert (user.join.select {|x| x == nil}) == nil
+    assert_equal ['2/3/2016'], user.join.collect{|x| x[1]}
   end
 
   def test_email

@@ -1,7 +1,7 @@
 require 'CSV'
 
 class Users
-  attr_reader :data, :phonearray, :joinarray, :emailarray
+  attr_reader :data, :phonearray, :joinarray, :emailarray, :mainarray
   def initialize(filename)
     @data = CSV.read(filename)
     @phonearray = []
@@ -10,17 +10,18 @@ class Users
   end
 
   def phone
-    phonearray = []
-    data.each do |x|
-    phonearray << x[4].match(/\d{3}-\d{3}-\d{4}/)
-    end
-    p phonearray
+    data.select {|x| x[4].match(/\d{3}-\d{3}-\d{4}/)}
+    #phonearray = []
+    #data.each do |x|
+    #phonearray << x.select {|x| x[4].match(/\d{3}-\d{3}-\d{4}/)}
+    #end
+    #p phonearray
   end
 
   def join
     joinarray = []
     data.each do |x|
-    joinarray << x[1].match(/\d{3}-\d{3}-\d{4}/)
+    joinarray << x[1].match(/^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/)
     end
     p joinarray
   end
@@ -28,8 +29,18 @@ class Users
   def email
     emailarray = []
     data.each do |x|
-    emailarray << x[3].match(/\d{3}-\d{3}-\d{4}/)
+      emailarray << x[3].match(/^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/)
     end
     p emailarray
+  end
+
+  def rownumber
+    CSV.foreach(filename).with_index do |row, i|
+      puts i
+    end
+  end
+
+  def validity
+  p emailarray.select {|x| x !=nil}
   end
 end

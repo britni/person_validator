@@ -9,6 +9,21 @@ class NewUsersTest < Minitest::Test
 
   def test_phone
     user = Users.new('homework.csv')
-    assert (user.phone.select {|x| x == nil}) == nil
+    assert (user.phone.select {|x| x == nil}) == []
+  end
+
+  def test_join
+    user = Users.new('homework.csv')
+    assert (user.join.select {|x| x == nil}) == nil
+  end
+
+  def test_email
+    user = Users.new('homework.csv')
+    assert (user.email.select {|x| x == nil}) == nil
+  end
+
+  def test_validity
+    user = Users.new('homework.csv')
+    p user.validity.rownumber
   end
 end

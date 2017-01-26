@@ -10,15 +10,15 @@ class Users
   end
 
   def phone
-    data.select {|x| x[4].match(/\d{3}-\d{3}-\d{4}/)}
+    data.select {|x| x[4] !~ /\d{3}-\d{3}-\d{4}/}
   end
 
   def join
-    data.select {|x| x[1].match(/^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/)}
+    data.select {|x| x[1] !~ /^(\d|[0][0-9]|[1][012])[\/-](\d|[012][0-9]|30|31)[\/-]((20)((0)[0-9]|(1)[0-7])|(19)[5-9][0-9])$/}
   end
 
   def email
-    data.select {|x| x[3].match(/^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/)}
+    data.select {|x| x[3] !~ /^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/}
   end
 
   def rownumber
@@ -28,7 +28,7 @@ class Users
   end
 
   def valid_users
-    join
+    data - phone - join - email - data[0]
   #p emailarray.select {|x| x !=nil}
   # get the entire csv and remove all the ones that don't match
   #data - data.phone - data.join - data.email

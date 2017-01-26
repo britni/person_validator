@@ -64,3 +64,6 @@ puts "Invalid dates include #{invalid_join}"
 #invalid email
 invalid_email = ((user.data - user.email).collect {|x| x[0]}) - user.data[0]
 puts "Invalid emails include #{invalid_email}"
+
+p invalid_email
+p valid_users = user.data.collect{|x| x[0]} - invalid_phones - invalid_join - invalid_email

@@ -50,10 +50,8 @@ class Users
 end
 
  user = Users.new('homework.csv')
- p header = user.data[0]
- p valid = user.data - header - user.phone - user.join - user.email
- #Why won't this subtract!
- p valid.length
+ #valid_users = ((user.data - user.phone - user.join - user.email).collect {|x| x[0]}) - user.data[0]
+ #puts "There are #{valid_users.length} valid users. They include #{valid_users}."
 
 #invalid phones
 invalid_phones = (user.data - user.phone).collect {|x| x[0]} - user.data[0]

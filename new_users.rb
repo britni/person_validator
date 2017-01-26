@@ -1,7 +1,7 @@
 require 'CSV'
 
 class Users
-  attr_reader :data, :phonearray, :joinarray, :emailarray, :mainarray
+  attr_reader :data, :phone, :join, :email, :main
   def initialize(filename)
     @data = CSV.read(filename)
     @phonearray = []
@@ -28,11 +28,12 @@ class Users
   end
 
   def email
-    emailarray = []
-    data.each do |x|
-      emailarray << x[3].match(/^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/)
-    end
-    p emailarray
+    data.select {|x| x[3].match(/^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/)}
+    #emailarray = []
+    #data.each do |x|
+    #  emailarray << x[3].match(/^(\w+|\w+[\.-_]\w+)@\w+\.(com|net|org|io|co)$/)
+    #end
+    #p emailarray
   end
 
   def rownumber
@@ -42,8 +43,26 @@ class Users
   end
 
   def validity
-  p emailarray.select {|x| x !=nil}
+  #p emailarray.select {|x| x !=nil}
   # get the entire csv and remove all the ones that don't match
-  # data - data.phone - data.join - data.email
+  #data - data.phone - data.join - data.email
   end
 end
+
+ user = Users.new('homework.csv')
+ p header = user.data[0]
+ p valid = user.data - header - user.phone - user.join - user.email
+ #Why won't this subtract!
+ p valid.length
+
+#invalid phones
+invalid_phones = (user.data - user.phone).collect {|x| x[0]} - user.data[0]
+puts "Invalid phones include #{invalid_phones}"
+
+#invalid join
+invalid_join = ((user.data - user.join).collect {|x| x[0]}) - user.data[0]
+puts "Invalid dates include #{invalid_join}"
+
+#invalid email
+invalid_email = ((user.data - user.email).collect {|x| x[0]}) - user.data[0]
+puts "Invalid emails include #{invalid_email}"

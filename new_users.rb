@@ -3,7 +3,7 @@ require 'CSV'
 class Users
   attr_reader :data, :phone, :join, :email, :main
   def initialize(filename)
-    @data = CSV.read(filename)
+    @data = CSV.read(filename) - [CSV.read(filename)[0]]
     @phonearray = []
     @joinarray = []
     @emailarray = []
@@ -58,3 +58,5 @@ p valid_users.count
 puts CSV.read('homework.csv').count
 
 p user.valid_users
+
+p user.data - [user.data[0]]

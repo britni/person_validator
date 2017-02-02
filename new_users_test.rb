@@ -9,7 +9,7 @@ class NewUsersTest < Minitest::Test
 
   def test_phone
     user = Users.new('homework.csv')
-    refute_equal ['919-111-1111', '000-000-0000'], user.phone.collect {|x| x[4]}
+    assert_equal ['9192223333', '(919)333-444', '919.444.5555', '(1)2-3', '(919) 555-6666'], user.phone.collect {|x| x[4]}
   end
 
   def test_join
@@ -19,11 +19,12 @@ class NewUsersTest < Minitest::Test
 
   def test_email
     user = Users.new('homework.csv')
-    refute_equal ['amy@amy.com', 'e23@compuserve.net', 'me@prodigy.com', 'iloveninja@turtles.io'], user.email.collect {|x| x[3]}
+    assert_equal ['bob@bob@bob.com', 'cindy@cindy', 'dan-dan.dan@dan.dan.com'], user.email.collect {|x| x[3]}
   end
 
   def test_valid_users
     user = Users.new('homework.csv')
-    assert_equal [], user.valid_users.collect {|x| x[0]}
+    #assert_equal [], user.valid_users.collect {|x| x[0]}
+    assert_equal 0, user.valid_users
   end
 end

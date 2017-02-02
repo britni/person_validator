@@ -22,13 +22,13 @@ class Users
   end
 
   def rownumber
-    CSV.foreach(filename).with_index do |row, i|
-      puts i
+    CSV.foreach('homework.csv') do |csv|
+      puts $.
     end
   end
 
   def valid_users
-    data - phone - join - email - data[0]
+    (data - phone - join - email).count
   #p emailarray.select {|x| x !=nil}
   # get the entire csv and remove all the ones that don't match
   #data - data.phone - data.join - data.email
@@ -55,8 +55,4 @@ p invalid_email
 p valid_users = user.data.collect{|x| x[0]} - invalid_phones - invalid_join - invalid_email - user.data[0]
 p valid_users.count
 
-puts CSV.read('homework.csv').count
-
-p user.valid_users
-
-p user.data - [user.data[0]]
+puts user.rownumber
